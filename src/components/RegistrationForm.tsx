@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from 'sonner';
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     firstName: '',
     lastName: '',
@@ -50,8 +52,11 @@ const RegistrationForm = () => {
     setFormState(prev => ({ ...prev, loading: true }));
 
     try {
-      // This would connect to your ASP.NET backend when it's deployed
-      toast.success("Registration submitted successfully! API integration required.");
+      // Simulate registration success and navigate to dashboard
+      setTimeout(() => {
+        toast.success("Registration successful!");
+        navigate("/dashboard");
+      }, 1000);
       
       // In a real implementation, you would make an API call here:
       /*
@@ -75,6 +80,7 @@ const RegistrationForm = () => {
 
       const data = await response.json();
       toast.success("Registration successful!");
+      navigate("/dashboard");
       */
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Registration failed");
